@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Component responsible for the table containing the alphabetically ordered municipality counts
-const CountTable = ({ muniArray, setFilter }) => {
+const CountTable = ({ muniArray, filter, setFilter }) => {
   // Style for the table
   const tableStyle = {
     textAlign: 'center',
@@ -23,15 +23,27 @@ const CountTable = ({ muniArray, setFilter }) => {
       var character = muniArray[i].name.substring(0, 1)
       counts[character] = counts[character] ? counts[character] + 1 : 1
     }
-    // Mapping the counted objects by key and constructing rows to render
-    return Object.keys(counts).map(item => (
-      <tr key={item}>
-        <td style={cellStyle} onClick={() => setFilter(item)}>
-          <span style={{ color: '#3D9970' }}>{item}</span>
-        </td>
-        <td style={cellStyle}>{counts[item]}</td>
-      </tr>
-    ))
+    // If a filter exists, shows the filter and count accordingly.
+    if (filter) {
+      return (
+        <tr>
+          <td style={cellStyle}>
+            <span style={{ color: '#3D9970' }}>{filter}</span>
+          </td>
+          <td style={cellStyle}>{counts[filter] ? counts[filter] : 0}</td>
+        </tr>
+      )
+    } else {
+      // Mapping the counted objects by key and constructing rows to render
+      return Object.keys(counts).map(item => (
+        <tr key={item}>
+          <td style={cellStyle} onClick={() => setFilter(item)}>
+            <span style={{ color: '#3D9970' }}>{item}</span>
+          </td>
+          <td style={cellStyle}>{counts[item]}</td>
+        </tr>
+      ))
+    }
   }
 
   // Table structure and contents with styles applied

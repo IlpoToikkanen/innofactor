@@ -61,7 +61,11 @@ const App = () => {
             <MuniList muniArray={muniFiltered()} />
           </div>
           <div style={childStyle}>
-            <CountTable muniArray={muniFiltered()} setFilter={setFilter} />
+            <CountTable
+              muniArray={muniFiltered()}
+              filter={filter}
+              setFilter={setFilter}
+            />
           </div>
         </div>
       </>
